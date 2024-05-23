@@ -25,6 +25,7 @@ public class AdminController {
     @GetMapping("/customer")
     public String viewCustomer(@RequestBody Customer cust){
             return cust.toString();
+            //checking the branch setup
 
 
     }
