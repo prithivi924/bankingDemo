@@ -23,8 +23,8 @@ public class AdminController {
     }
 
     @GetMapping("/customer")
-    public Customer viewCustomer(@RequestBody Customer cust){
-            return cust;
+    public String viewCustomer(@RequestBody Customer cust){
+            return cust.toString();
 
 
     }
