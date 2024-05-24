@@ -1,12 +1,25 @@
-package com.Spring.Banking.Controller;
+package com.Spring.Banking.Pojo;
 
 import org.springframework.stereotype.Component;
 
 //@Component
 public class Customer {
 
+    public Customer() {
+
+    }
+
     public void welcome(){
         System.out.println("Welcome to baking application");
+    }
+    private int id;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     private String name;
@@ -44,12 +57,5 @@ public class Customer {
 
     }
 
-    @Override
-    public String toString() {
-        return "Customer{" +
-                "name='" + name + '\'' +
-                ", age=" + age +
-                ", account='" + account + '\'' +
-                '}';
-    }
+
 }
