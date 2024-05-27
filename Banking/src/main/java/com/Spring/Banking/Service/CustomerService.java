@@ -1,6 +1,9 @@
 package com.Spring.Banking.Service;
 
+import com.Spring.Banking.Entity.CustomerEntity;
 import com.Spring.Banking.Pojo.Customer;
+import com.Spring.Banking.Repository.CustomerRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -8,7 +11,8 @@ import java.util.List;
 
 @Service
 public class CustomerService {
-
+    @Autowired
+    private CustomerRepository repo;
     ArrayList<Customer> customers = new ArrayList<Customer>();
     public Customer getCustomerById(int id){
         Customer output = new Customer();
@@ -21,7 +25,9 @@ public class CustomerService {
     }
 
     public String addCustomer(Customer cust){
-        customers.add(cust);
+        //customers.add(cust);
+        CustomerEntity object = new CustomerEntity(cust.getId(),cust.getName(),cust.getAge(),cust.getAccount());
+        repo.save(object);//inserting entity object into the table.
         return "Customer Added Successfully";
     }
 
