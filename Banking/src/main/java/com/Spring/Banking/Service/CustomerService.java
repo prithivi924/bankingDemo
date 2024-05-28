@@ -3,6 +3,7 @@ package com.Spring.Banking.Service;
 import com.Spring.Banking.Entity.CustomerEntity;
 import com.Spring.Banking.Pojo.Customer;
 import com.Spring.Banking.Repository.CustomerRepository;
+import com.Spring.Banking.utility.Utilities;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,13 +16,17 @@ public class CustomerService {
     private CustomerRepository repo;
     ArrayList<Customer> customers = new ArrayList<Customer>();
     public Customer getCustomerById(int id){
-        Customer output = new Customer();
+        //get customer by ID
+
+        CustomerEntity entity = repo.getById(id);
+
+         /* Customer output = new Customer();
         for(Customer customer : customers){
             if(customer.getId()== id){
                output=customer;
             }
-        }
-        return output;
+        }*/
+        return Utilities.convertToCustomer(entity);
     }
 
     public String addCustomer(Customer cust){
@@ -32,6 +37,11 @@ public class CustomerService {
     }
 
     public List<Customer> getAllCustomer() {
+       List<CustomerEntity> entities = repo.findAll();
+       List<Customer> customers = new ArrayList<>();
+       for(CustomerEntity entity : entities){
+           customers.add(Utilities.convertToCustomer(entity));
+       }
         return customers;
     }
 

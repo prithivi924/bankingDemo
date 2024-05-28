@@ -46,7 +46,8 @@ public class Customer {
         return account;
     }
 
-    public Customer(String name, int age, String account) {
+    public Customer(int id, String name, int age, String account) {
+        this.id = id;
         this.name = name;
         this.age = age;
         this.account = account;

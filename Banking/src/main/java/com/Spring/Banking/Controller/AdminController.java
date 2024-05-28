@@ -2,6 +2,8 @@ package com.Spring.Banking.Controller;
 
 import com.Spring.Banking.Pojo.Customer;
 import com.Spring.Banking.Service.CustomerService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,6 +13,8 @@ import java.util.List;
 public class AdminController {
     @Autowired
     public CustomerService service;
+
+    Logger logger = LoggerFactory.getLogger(AdminController.class);
 
     @GetMapping("/first")
     public String firstRequest(@RequestParam String name) {
@@ -26,6 +30,8 @@ public class AdminController {
     @GetMapping("/customer")
     //get a specific customer object by passing their Id
     public Customer viewCustomer(@RequestParam int id) {
+        logger.info("entered in get Request for returning an customer object",id);
+        logger.info("Customer Object: "+service.getCustomerById(id).toString());
         return service.getCustomerById(id);
     }
 
