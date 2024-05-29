@@ -2,6 +2,7 @@ package com.Spring.Banking.Controller;
 
 import com.Spring.Banking.Pojo.Customer;
 import com.Spring.Banking.Service.CustomerService;
+import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,8 +36,16 @@ public class AdminController {
         return service.getCustomerById(id);
     }
 
+    @GetMapping("/customerName")
+    //get a specific customer object by passing their Name
+    public Customer getCustomerName(@RequestParam String name) {
+        logger.info("entered in get Request for returning an customer object",name);
+        logger.info("Customer Object: "+service.getCustomerByName(name).toString());
+        return service.getCustomerByName(name);
+    }
+
     @PostMapping("/addCustomer")
-    public String addCustomer(@RequestBody Customer customer) {
+    public String addCustomer(@RequestBody @Valid Customer customer) {
         return service.addCustomer(customer);
     }
 

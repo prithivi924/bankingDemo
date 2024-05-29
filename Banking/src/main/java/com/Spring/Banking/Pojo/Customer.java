@@ -1,8 +1,11 @@
 package com.Spring.Banking.Pojo;
-
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
 import org.springframework.stereotype.Component;
 
 //@Component
+
 public class Customer {
 
     public Customer() {
@@ -13,17 +16,12 @@ public class Customer {
         System.out.println("Welcome to baking application");
     }
     private int id;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
+    @NotBlank(message = "Name is mandatory,please enter name")
     private String name;
+    @Min(18)
+    @Max(98)
     private int age;
+    @NotBlank(message = "Account type is mandatory,please enter ")
     private String account;
 
     public String getName() {
@@ -51,6 +49,13 @@ public class Customer {
         this.name = name;
         this.age = age;
         this.account = account;
+    }
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public void setAccount(String account) {

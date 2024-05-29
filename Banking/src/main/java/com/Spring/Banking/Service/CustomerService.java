@@ -6,6 +6,7 @@ import com.Spring.Banking.Repository.CustomerRepository;
 import com.Spring.Banking.utility.Utilities;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import com.Spring.Banking.ExceptionHandler.CustomerNotFoundException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,17 +19,27 @@ public class CustomerService {
     public Customer getCustomerById(int id){
         //get customer by ID
 
-        CustomerEntity entity = repo.getById(id);
-
+        CustomerEntity entity = repo.getReferenceById(id);
+        //if(entity!= null){
+            return Utilities.convertToCustomer(entity);
+       // }
          /* Customer output = new Customer();
         for(Customer customer : customers){
             if(customer.getId()== id){
                output=customer;
             }
         }*/
-        return Utilities.convertToCustomer(entity);
-    }
 
+    }
+    public Customer getCustomerByName(String name){
+        CustomerEntity entity = repo.getByName(name);
+        if(entity!= null) {
+            return Utilities.convertToCustomer(entity);
+        }
+        else{
+            throw new CustomerNotFoundException("Customer Not found");
+        }
+    }
     public String addCustomer(Customer cust){
         //customers.add(cust);
         CustomerEntity object = new CustomerEntity(cust.getId(),cust.getName(),cust.getAge(),cust.getAccount());
