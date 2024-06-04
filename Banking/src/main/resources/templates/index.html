@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+</head>
+<body>
+<h1>welcome to banking application</h1>
+<form action="#" th:action="@{/emptyCustomerPage}" th:object="${employee}"
+      method="GET">
+
+    <button type="submit" class="btn btn-info col-2">Add Customer</button>
+</body>
+</html>

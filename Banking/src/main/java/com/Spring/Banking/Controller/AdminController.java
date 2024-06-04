@@ -2,25 +2,30 @@ package com.Spring.Banking.Controller;
 
 import com.Spring.Banking.Pojo.Customer;
 import com.Spring.Banking.Service.CustomerService;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
-@RestController
+@Controller
 public class AdminController {
     @Autowired
     public CustomerService service;
 
     Logger logger = LoggerFactory.getLogger(AdminController.class);
 
-    @GetMapping("/first")
-    public String firstRequest(@RequestParam String name) {
+    @GetMapping("/")
+    public String index() {
         //customer.welcome();
-        return "Welcome " + name;
+        return "index";
     }
 
     @GetMapping("/add")
@@ -36,6 +41,17 @@ public class AdminController {
         return service.getCustomerById(id);
     }
 
+    @GetMapping("/emptyCustomerPage")
+    public String returnEmptyPage(Model model){
+       Customer customer = new Customer();
+       model.addAttribute("cust",customer);
+       return "CustomerInsert";
+    }
+    @PostMapping("/addCustomer")
+    public String addCustomer(@ModelAttribute("cust") @Valid Customer customer) {
+         service.addCustomer(customer);
+        return "successInsert";
+    }
     @GetMapping("/customerName")
     //get a specific customer object by passing their Name
     public Customer getCustomerName(@RequestParam String name) {
@@ -43,12 +59,6 @@ public class AdminController {
         logger.info("Customer Object: "+service.getCustomerByName(name).toString());
         return service.getCustomerByName(name);
     }
-
-    @PostMapping("/addCustomer")
-    public String addCustomer(@RequestBody @Valid Customer customer) {
-        return service.addCustomer(customer);
-    }
-
     @GetMapping("/getAllCustomer")
     //get all  customer object
     public List<Customer> getAllCustomer() {

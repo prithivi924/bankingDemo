@@ -42,7 +42,6 @@ public class ExceptionController {
             errors.put(error.getField(),error.getDefaultMessage());
         }
         );
-
         return errors;
     }
 }
